@@ -1,5 +1,3 @@
-# CLAUDE.md
-
 ## Project
 
 Executive B2B SaaS metrics dashboard. React + TypeScript + Vite. Data source: `src/data/metrics.json` (4 datasets × 365 days × 11 metrics).
@@ -52,6 +50,10 @@ Dataset strokes: A=`#0e7490`, B=`#059669`, C=`#7c3aed`, D=`#d97706`
 - **Null safety**: `aggregate()` returns `null` when all values in range are null. KPICard renders `<Badge>N/A</Badge>` — never crashes.
 - **Sum vs average**: count metrics (traffic, leads, deals, stale_deals, tickets) are summed; rate/duration metrics (avg_response_time_min, avg_deal_cycle_days, support_avg_resolution_hours) are averaged.
 - **Test scope**: vitest runs `tests/unit/**` only. E2E lives in `tests/e2e/` and runs via `npx playwright test`.
+
+## Gotchas
+
+- **Build chunk warning**: `npm run build` always warns about a ~1MB chunk. Expected — `metrics.json` is imported statically. Not a bug.
 
 ## Commit convention
 
