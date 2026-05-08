@@ -25,7 +25,7 @@ describe('KPICard', () => {
 
   it('renders the formatted value with unit', () => {
     render(<KPICard kpi={makeKPI({ value: 1234 })} />)
-    expect(screen.getByText(/1,234 visits/)).toBeInTheDocument()
+    expect(screen.getByText(/1\.234 visits/)).toBeInTheDocument()
   })
 
   it('renders N/A badge when value is null', () => {
