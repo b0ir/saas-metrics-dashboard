@@ -1,4 +1,3 @@
-import './index.css'
 import { useDataset } from '@/hooks/useDataset'
 import { useMetrics } from '@/hooks/useMetrics'
 import { DatasetTabs } from '@/components/DatasetTabs'
