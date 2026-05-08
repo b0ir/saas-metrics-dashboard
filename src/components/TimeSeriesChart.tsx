@@ -45,7 +45,9 @@ export function TimeSeriesChart({ filtered, metrics, datasetColor }: TimeSeriesC
   const min = values.length ? Math.min(...values) : 0
   const max = values.length ? Math.max(...values) : 100
   const pad = (max - min) * 0.1 || 10
-  const domain: [number, number] = [Math.max(0, min - pad), max + pad]
+  const domainMin = Math.floor(Math.max(0, min - pad))
+  const domainMax = Math.ceil(max + pad)
+  const domain: [number, number] = [domainMin, domainMax]
 
   // Reduce tick density for large ranges
   const tickCount = filtered.length > 60 ? 6 : filtered.length > 30 ? 8 : filtered.length
@@ -53,8 +55,8 @@ export function TimeSeriesChart({ filtered, metrics, datasetColor }: TimeSeriesC
   return (
     <Card className="border-slate-200 bg-white shadow-sm">
       <CardHeader className="pb-2 pt-4 px-4">
-        <div className="flex items-start justify-between gap-4 flex-wrap">
-          <div>
+        <div className="flex items-start justify-between gap-4">
+          <div className="min-w-0">
             <CardTitle className="text-sm font-semibold text-slate-700">
               Tendencia en el tiempo
             </CardTitle>
@@ -65,7 +67,7 @@ export function TimeSeriesChart({ filtered, metrics, datasetColor }: TimeSeriesC
             )}
           </div>
           <Select value={selectedKey} onValueChange={(v) => setSelectedKey(v as MetricKey)}>
-            <SelectTrigger className="w-48 h-8 text-xs">
+            <SelectTrigger className="w-48 h-8 text-xs shrink-0">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -98,6 +100,7 @@ export function TimeSeriesChart({ filtered, metrics, datasetColor }: TimeSeriesC
               axisLine={false}
               tickLine={false}
               width={48}
+              tickFormatter={(v) => Math.round(v).toLocaleString('es-CL')}
             />
             <Tooltip
               formatter={(v) => [
