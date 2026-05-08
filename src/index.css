@@ -24,6 +24,15 @@
   --color-card: #ffffff;
   --color-border: #e2e8f0;
   --color-muted: #64748b;
+
+  /* shadcn component tokens — not defined by our manual init */
+  --color-background: #ffffff;
+  --color-foreground: #0f172a;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #0f172a;
+  --color-muted-foreground: #64748b;
+  --color-input: #e2e8f0;
+  --color-ring: #0e7490;
 }
 
 *,

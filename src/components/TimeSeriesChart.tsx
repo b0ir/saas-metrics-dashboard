@@ -114,6 +114,7 @@ export function TimeSeriesChart({ filtered, metrics, datasetColor }: TimeSeriesC
               strokeWidth={2}
               dot={false}
               connectNulls={false}
+              isAnimationActive={false}
             />
           </LineChart>
         </ResponsiveContainer>
