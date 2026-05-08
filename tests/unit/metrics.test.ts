@@ -121,7 +121,7 @@ describe('formatValue', () => {
   })
 
   it('rounds float to 1 decimal', () => {
-    expect(formatValue(34.567, 'min')).toBe('34.6 min')
+    expect(formatValue(34.567, 'min')).toBe('34,6 min')
   })
 
   it('returns N/A for null', () => {

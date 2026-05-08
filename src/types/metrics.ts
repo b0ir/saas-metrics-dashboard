@@ -59,13 +59,6 @@ export const SUM_METRICS: MetricKey[] = [
   'support_tickets_opened',
 ]
 
-/** Metrics that should be averaged across a period (rates/durations) */
-export const AVG_METRICS: MetricKey[] = [
-  'avg_response_time_min',
-  'avg_deal_cycle_days',
-  'support_avg_resolution_hours',
-]
-
 /** Funnel steps in order */
 export const FUNNEL_STEPS: MetricKey[] = [
   'traffic',

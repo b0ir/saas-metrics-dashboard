@@ -57,7 +57,7 @@ export function directionColor(
 export function formatValue(value: number | null, unit: string): string {
   if (value === null) return 'N/A'
   const rounded = Number.isInteger(value) ? value : +value.toFixed(1)
-  return `${rounded.toLocaleString()} ${unit}`
+  return `${rounded.toLocaleString('es-CL')} ${unit}`
 }
 
 /** Formats a delta as "+4.2%" or "-3.1%" */
