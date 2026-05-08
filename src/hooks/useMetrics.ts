@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import type { Dataset, DateRange, MetricKey } from '@/types/metrics'
 import { filterByDays, aggregate, trendDelta, directionColor } from '@/lib/metrics'
+import { METRIC_LABELS, UNIT_LABELS } from '@/lib/labels'
 
 export interface KPIResult {
   key: MetricKey
@@ -25,7 +26,14 @@ export function useMetrics(dataset: Dataset, dateRange: DateRange) {
         const value = aggregate(filtered, def.key)
         const delta = trendDelta(filtered, def.key)
         const trend = directionColor(delta, def.direction)
-        return { ...def, value, delta, trend }
+        return {
+          ...def,
+          label: METRIC_LABELS[def.key] ?? def.label,
+          unit: UNIT_LABELS[def.unit] ?? def.unit,
+          value,
+          delta,
+          trend,
+        }
       }),
     [filtered, dataset.metadata.metrics],
   )

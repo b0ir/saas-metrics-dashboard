@@ -24,7 +24,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
           <div>
             <h1 className="text-lg font-semibold text-slate-900 leading-tight">
-              Executive Dashboard
+              Dashboard Ejecutivo
             </h1>
             <p className="text-xs text-slate-400 mt-0.5">
               {dataset.metadata.start_date} → {dataset.metadata.end_date}
@@ -41,7 +41,7 @@ export default function App() {
           <h2 className="text-sm font-medium text-slate-600">
             Dataset {activeKey} —{' '}
             <span className="text-slate-400 font-normal">
-              {filtered.length} days selected
+              {filtered.length} días seleccionados
             </span>
           </h2>
           <DateRangeFilter active={dateRange} onChange={setDateRange} />

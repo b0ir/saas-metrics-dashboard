@@ -13,11 +13,11 @@ import type { DayRecord } from '@/types/metrics'
 import { FUNNEL_STEPS } from '@/types/metrics'
 
 const STEP_LABELS: Record<string, string> = {
-  traffic: 'Visits',
-  leads_created: 'Leads',
-  leads_qualified: 'Qualified',
-  deals_created: 'Deals',
-  deals_won: 'Won',
+  traffic: 'Visitas',
+  leads_created: 'Leads creados',
+  leads_qualified: 'Leads calificados',
+  deals_created: 'Deals creados',
+  deals_won: 'Deals ganados',
 }
 
 const BAR_COLOR = '#0e7490'
@@ -36,9 +36,9 @@ export function FunnelChart({ filtered }: FunnelChartProps) {
     <Card className="border-slate-200 bg-white shadow-sm">
       <CardHeader className="pb-2 pt-4 px-4">
         <CardTitle className="text-sm font-semibold text-slate-700">
-          Sales Funnel
+          Embudo de ventas
         </CardTitle>
-        <p className="text-xs text-slate-400">Conversions across selected period</p>
+        <p className="text-xs text-slate-400">Conversiones en el período seleccionado</p>
       </CardHeader>
       <CardContent className="px-2 pb-4">
         <ResponsiveContainer width="100%" height={220}>
@@ -62,7 +62,7 @@ export function FunnelChart({ filtered }: FunnelChartProps) {
               tickLine={false}
             />
             <Tooltip
-              formatter={(v) => [(Number(v) || 0).toLocaleString(), 'Total']}
+              formatter={(v) => [(Number(v) || 0).toLocaleString('es-CL'), 'Total']}
               contentStyle={{
                 fontSize: 12,
                 border: '1px solid #e2e8f0',

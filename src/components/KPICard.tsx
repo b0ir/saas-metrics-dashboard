@@ -50,7 +50,7 @@ export function KPICard({ kpi }: KPICardProps) {
         >
           <TrendIcon trend={kpi.trend} />
           <span>{formatDelta(kpi.delta)}</span>
-          <span className="text-slate-400 font-normal">vs prev 7d</span>
+          <span className="text-slate-400 font-normal">vs 7d anteriores</span>
         </div>
       </CardContent>
     </Card>

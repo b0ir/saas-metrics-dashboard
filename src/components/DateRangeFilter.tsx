@@ -4,9 +4,9 @@ import { DATE_RANGES } from '@/types/metrics'
 import { cn } from '@/lib/utils'
 
 const LABELS: Record<DateRange, string> = {
-  30: '30 days',
-  90: '90 days',
-  365: '1 year',
+  30: '30 días',
+  90: '90 días',
+  365: '1 año',
 }
 
 interface DateRangeFilterProps {
@@ -16,7 +16,7 @@ interface DateRangeFilterProps {
 
 export function DateRangeFilter({ active, onChange }: DateRangeFilterProps) {
   return (
-    <div className="flex gap-1.5" role="group" aria-label="Date range">
+    <div className="flex gap-1.5" role="group" aria-label="Rango de fechas">
       {DATE_RANGES.map((range) => (
         <Button
           key={range}

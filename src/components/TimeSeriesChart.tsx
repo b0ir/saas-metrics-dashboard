@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import type { DayRecord, MetricDef, MetricKey } from '@/types/metrics'
+import { METRIC_LABELS, METRIC_DESCRIPTIONS } from '@/lib/labels'
 
 interface TimeSeriesChartProps {
   filtered: DayRecord[]
@@ -55,10 +56,12 @@ export function TimeSeriesChart({ filtered, metrics, datasetColor }: TimeSeriesC
         <div className="flex items-start justify-between gap-4 flex-wrap">
           <div>
             <CardTitle className="text-sm font-semibold text-slate-700">
-              Trend over time
+              Tendencia en el tiempo
             </CardTitle>
             {selectedDef && (
-              <p className="text-xs text-slate-400 mt-0.5">{selectedDef.description}</p>
+              <p className="text-xs text-slate-400 mt-0.5">
+                {METRIC_DESCRIPTIONS[selectedDef.key] ?? selectedDef.description}
+              </p>
             )}
           </div>
           <Select value={selectedKey} onValueChange={(v) => setSelectedKey(v as MetricKey)}>
@@ -68,7 +71,7 @@ export function TimeSeriesChart({ filtered, metrics, datasetColor }: TimeSeriesC
             <SelectContent>
               {metrics.map((m) => (
                 <SelectItem key={m.key} value={m.key} className="text-xs">
-                  {m.label}
+                  {METRIC_LABELS[m.key] ?? m.label}
                 </SelectItem>
               ))}
             </SelectContent>
