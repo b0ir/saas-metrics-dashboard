@@ -12,6 +12,7 @@ export interface KPIResult {
   value: number | null
   delta: number | null
   trend: 'good' | 'bad' | 'neutral'
+  deltaLabel: string
 }
 
 export function useMetrics(dataset: Dataset, dateRange: DateRange) {
@@ -20,23 +21,26 @@ export function useMetrics(dataset: Dataset, dateRange: DateRange) {
     [dataset, dateRange],
   )
 
-  const kpis: KPIResult[] = useMemo(
-    () =>
-      dataset.metadata.metrics.map((def) => {
-        const value = aggregate(filtered, def.key)
-        const delta = trendDelta(filtered, def.key)
-        const trend = directionColor(delta, def.direction)
-        return {
-          ...def,
-          label: METRIC_LABELS[def.key] ?? def.label,
-          unit: UNIT_LABELS[def.unit] ?? def.unit,
-          value,
-          delta,
-          trend,
-        }
-      }),
-    [filtered, dataset.metadata.metrics],
-  )
+  const kpis: KPIResult[] = useMemo(() => {
+    const deltaLabel = dateRange === 365
+      ? 'sin año anterior'
+      : `vs ${dateRange}d anteriores`
+
+    return dataset.metadata.metrics.map((def) => {
+      const value = aggregate(filtered, def.key)
+      const delta = trendDelta(dataset.days, def.key, dateRange)
+      const trend = directionColor(delta, def.direction)
+      return {
+        ...def,
+        label: METRIC_LABELS[def.key] ?? def.label,
+        unit: UNIT_LABELS[def.unit] ?? def.unit,
+        value,
+        delta,
+        trend,
+        deltaLabel,
+      }
+    })
+  }, [filtered, dataset, dateRange])
 
   return { filtered, kpis }
 }
