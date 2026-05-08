@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import type { DayRecord, MetricDef } from '@/types/metrics'
+import type { DayRecord, MetricDef, MetricKey } from '@/types/metrics'
 
 interface TimeSeriesChartProps {
   filtered: DayRecord[]
@@ -30,7 +30,7 @@ function formatDate(dateStr: string): string {
 }
 
 export function TimeSeriesChart({ filtered, metrics, datasetColor }: TimeSeriesChartProps) {
-  const [selectedKey, setSelectedKey] = useState(metrics[0]?.key ?? 'traffic')
+  const [selectedKey, setSelectedKey] = useState<MetricKey>(metrics[0]?.key ?? 'traffic')
 
   const selectedDef = metrics.find((m) => m.key === selectedKey)
 
@@ -61,7 +61,7 @@ export function TimeSeriesChart({ filtered, metrics, datasetColor }: TimeSeriesC
               <p className="text-xs text-slate-400 mt-0.5">{selectedDef.description}</p>
             )}
           </div>
-          <Select value={selectedKey} onValueChange={setSelectedKey}>
+          <Select value={selectedKey} onValueChange={(v) => setSelectedKey(v as MetricKey)}>
             <SelectTrigger className="w-48 h-8 text-xs">
               <SelectValue />
             </SelectTrigger>
@@ -97,8 +97,8 @@ export function TimeSeriesChart({ filtered, metrics, datasetColor }: TimeSeriesC
               width={48}
             />
             <Tooltip
-              formatter={(v: number | null) => [
-                v !== null ? v.toLocaleString() : 'N/A',
+              formatter={(v) => [
+                v != null ? Number(v).toLocaleString() : 'N/A',
                 selectedDef?.unit ?? '',
               ]}
               contentStyle={{

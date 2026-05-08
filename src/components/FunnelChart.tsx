@@ -62,7 +62,7 @@ export function FunnelChart({ filtered }: FunnelChartProps) {
               tickLine={false}
             />
             <Tooltip
-              formatter={(v: number) => [v.toLocaleString(), 'Total']}
+              formatter={(v) => [(Number(v) || 0).toLocaleString(), 'Total']}
               contentStyle={{
                 fontSize: 12,
                 border: '1px solid #e2e8f0',
