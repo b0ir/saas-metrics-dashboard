@@ -28,11 +28,11 @@ export function aggregate(records: DayRecord[], key: MetricKey): number | null {
  * Computes percentage delta between the last 7 days and the 7 days before.
  * Returns null when there is insufficient data or a zero baseline.
  */
-export function trendDelta(records: DayRecord[], key: MetricKey): number | null {
-  if (records.length < 14) return null
+export function trendDelta(records: DayRecord[], key: MetricKey, days: number): number | null {
+  if (records.length < days * 2) return null
 
-  const recent = records.slice(-7)
-  const previous = records.slice(-14, -7)
+  const recent = records.slice(-days)
+  const previous = records.slice(-days * 2, -days)
 
   const recentAvg = averageNonNull(recent.map((d) => d.metrics[key]))
   const prevAvg = averageNonNull(previous.map((d) => d.metrics[key]))
