@@ -13,6 +13,7 @@ function makeKPI(overrides: Partial<KPIResult> = {}): KPIResult {
     value: 1234,
     delta: 5.2,
     trend: 'good',
+    deltaLabel: 'vs 30d anteriores',
     ...overrides,
   }
 }
@@ -54,6 +55,11 @@ describe('KPICard', () => {
     render(<KPICard kpi={makeKPI({ trend: 'good' })} />)
     const trendEl = screen.getByText('+5.2%').closest('[data-trend]')
     expect(trendEl).toHaveAttribute('data-trend', 'good')
+  })
+
+  it('renders deltaLabel', () => {
+    render(<KPICard kpi={makeKPI({ deltaLabel: 'vs 90d anteriores' })} />)
+    expect(screen.getByText('vs 90d anteriores')).toBeInTheDocument()
   })
 
   it('applies bad trend color for negative higher_is_better', () => {

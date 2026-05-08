@@ -70,13 +70,13 @@ describe('aggregate', () => {
 })
 
 describe('trendDelta', () => {
-  it('returns null with fewer than 14 records', () => {
-    expect(trendDelta(days30.slice(0, 13), 'traffic')).toBeNull()
+  it('returns null when records fewer than 2× days', () => {
+    expect(trendDelta(days30.slice(0, 13), 'traffic', 7)).toBeNull()
+    expect(trendDelta(days30, 'traffic', 90)).toBeNull()
   })
 
   it('returns positive delta when recent avg > previous avg', () => {
-    // last 7 avg higher than prior 7
-    const delta = trendDelta(days30, 'traffic')
+    const delta = trendDelta(days30, 'traffic', 7)
     expect(delta).not.toBeNull()
     expect(delta!).toBeGreaterThan(0)
   })
@@ -85,7 +85,7 @@ describe('trendDelta', () => {
     const records = Array.from({ length: 14 }, (_, i) =>
       makeDay(`d${i}`, i < 7 ? 0 : 100),
     )
-    expect(trendDelta(records, 'traffic')).toBeNull()
+    expect(trendDelta(records, 'traffic', 7)).toBeNull()
   })
 })
 
