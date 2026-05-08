@@ -7,7 +7,7 @@ Executive B2B SaaS metrics dashboard. React + TypeScript + Vite. Data source: `s
 ```bash
 npm run dev          # dev server at localhost:5173
 npm test             # vitest unit + component tests with coverage
-npm run test:e2e     # playwright e2e (requires dev server or uses webServer config)
+npm run test:e2e     # playwright e2e (webServer config auto-starts dev server)
 npm run build        # tsc + vite build (production)
 npm run lint         # eslint
 ```
@@ -18,7 +18,8 @@ npm run lint         # eslint
 src/
   data/metrics.json     # static import — 652KB, 4 datasets (A/B/C/D)
   types/metrics.ts      # all shared types: MetricKey, MetricDef, DayRecord, Dataset, etc.
-  lib/metrics.ts        # pure functions: filterByDays, aggregate, trendDelta, directionColor
+  lib/metrics.ts        # pure functions: filterByDays, aggregate, trendDelta, directionColor, formatValue, formatDelta
+  lib/labels.ts         # Spanish translation layer — overrides JSON English labels, units, descriptions
   hooks/
     useDataset.ts       # selected dataset key + date range state
     useMetrics.ts       # derives kpis[] and filtered days from dataset + range
