@@ -1,0 +1,45 @@
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --color-accent: #0e7490;
+  --color-accent-light: #ecfeff;
+  --color-accent-foreground: #ffffff;
+
+  --color-trend-good: #059669;
+  --color-trend-bad: #dc2626;
+  --color-trend-neutral: #94a3b8;
+
+  --color-dataset-a: #0e7490;
+  --color-dataset-b: #059669;
+  --color-dataset-c: #7c3aed;
+  --color-dataset-d: #d97706;
+
+  --color-page: #f1f5f9;
+  --color-card: #ffffff;
+  --color-border: #e2e8f0;
+  --color-muted: #64748b;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: #f1f5f9;
+  color: #0f172a;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+}
