@@ -23,13 +23,13 @@ npm run build      # production build
 ## Decisiones técnicas
 
 ### Build tool: Vite
-SPA estática con datos importados en build time. No hay server-side rendering ni fetching asíncrono, así que Next.js habría sido sobredimensionado. Vite arranca en menos de 500ms y el bundle final es predecible.
+SPA estática con datos importados en build time. No hay server-side rendering ni fetching asíncrono, así que Next.js habría sido sobredimensionado. Vite arranca en menos de 500ms.
 
 ### UI: Tailwind CSS v4 + shadcn/ui
-Tailwind para utilidades, shadcn/ui para los primitivos accesibles (Tabs, Select, Button, Badge, Card). El setup es mínimo y las decisiones de diseño quedan explícitas en el markup, no escondidas en un componente de librería con 40 props.
+Tailwind para utilidades, shadcn/ui para los primitivos accesibles (Tabs, Select, Button, Badge, Card). Las decisiones de diseño quedan explícitas en el markup.
 
 ### Charts: Recharts
-React-native, composable, tipado con TypeScript. Para un dashboard ejecutivo donde los datos son relativamente simples (líneas, barras horizontales), Recharts es suficiente sin agregar complejidad innecesaria.
+React-native, composable, tipado con TypeScript. Para un dashboard ejecutivo con líneas y barras horizontales, Recharts es suficiente. D3 o Visx serían la opción si el producto escala a visualizaciones más complejas.
 
 ### Estado: useState sin librería externa
 No hay datos asincrónicos ni cache invalidation. Todo el estado es local: dataset seleccionado (A/B/C/D) y rango de fechas (30/90/365 días). Agregar Zustand o TanStack Query habría sido ingeniería de más para este scope.
