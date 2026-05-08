@@ -23,21 +23,27 @@ npm run build      # production build
 ## Decisiones técnicas
 
 ### Build tool: Vite
+
 SPA estática con datos importados en build time. No hay server-side rendering ni fetching asíncrono, así que Next.js habría sido sobredimensionado. Vite arranca en menos de 500ms.
 
 ### UI: Tailwind CSS v4 + shadcn/ui
+
 Tailwind para utilidades, shadcn/ui para los primitivos accesibles (Tabs, Select, Button, Badge, Card). Las decisiones de diseño quedan explícitas en el markup.
 
 ### Charts: Recharts
+
 React-native, composable, tipado con TypeScript. Para un dashboard ejecutivo con líneas y barras horizontales, Recharts es suficiente. D3 o Visx serían la opción si el producto escala a visualizaciones más complejas.
 
 ### Estado: useState sin librería externa
+
 No hay datos asincrónicos ni cache invalidation. Todo el estado es local: dataset seleccionado (A/B/C/D) y rango de fechas (30/90/365 días). Agregar Zustand o TanStack Query habría sido ingeniería de más para este scope.
 
 ### Lógica de métricas: funciones puras en `src/lib/metrics.ts`
+
 La dirección (`higher_is_better` / `lower_is_better`) determina si un delta positivo es bueno o malo. Esta lógica está separada de los componentes y es lo primero que se testea. Métricas de conteo (tráfico, leads, deals) se suman; métricas de tasa (tiempo de respuesta, ciclo de deal) se promedian.
 
 ### Valores nulos
+
 Cuando una métrica es null para todos los días del período seleccionado, el KPI card muestra un badge "N/A". Los nulos se excluyen de agregaciones y deltas sin romper el render.
 
 ---
