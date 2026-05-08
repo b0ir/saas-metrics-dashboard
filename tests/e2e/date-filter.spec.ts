@@ -13,14 +13,14 @@ test.describe('Date range filter', () => {
   })
 
   test('switching to 30 days updates the period label', async ({ page }) => {
-    await expect(page.getByText(/90 days selected/)).toBeVisible()
+    await expect(page.getByText(/90 días seleccionados/)).toBeVisible()
     await page.getByTestId('range-30').click()
-    await expect(page.getByText(/30 days selected/)).toBeVisible()
+    await expect(page.getByText(/30 días seleccionados/)).toBeVisible()
   })
 
   test('switching to 365 days updates the period label', async ({ page }) => {
     await page.getByTestId('range-365').click()
-    await expect(page.getByText(/365 days selected/)).toBeVisible()
+    await expect(page.getByText(/365 días seleccionados/)).toBeVisible()
   })
 
   test('active range button is visually highlighted', async ({ page }) => {

@@ -39,9 +39,9 @@ test.describe('Dataset switching', () => {
   })
 
   test('period label reflects the selected dataset', async ({ page }) => {
-    await expect(page.getByText(/90 days selected/)).toBeVisible()
+    await expect(page.getByText(/90 días seleccionados/)).toBeVisible()
     await page.getByRole('tab', { name: 'Dataset C' }).click()
     // After switching, the header still shows the day count (same period, different data)
-    await expect(page.getByText(/days selected/)).toBeVisible()
+    await expect(page.getByText(/días seleccionados/)).toBeVisible()
   })
 })
