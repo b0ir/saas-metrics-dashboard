@@ -16,7 +16,7 @@ npm run test:e2e   # playwright e2e
 npm run build      # production build
 ```
 
-**Requisitos:** Node 20+
+**Requisitos:** Node 22+
 
 ---
 
