@@ -49,8 +49,12 @@ export function TimeSeriesChart({ filtered, metrics, datasetColor }: TimeSeriesC
   const domainMax = Math.ceil(max + pad)
   const domain: [number, number] = [domainMin, domainMax]
 
-  // Reduce tick density for large ranges
-  const tickCount = filtered.length > 60 ? 6 : filtered.length > 30 ? 8 : filtered.length
+  // Reduce tick density for large ranges.
+  // Guard against division by zero when filtered is empty (interval would be NaN).
+  const tickBuckets = filtered.length > 60 ? 6 : filtered.length > 30 ? 8 : Math.max(filtered.length, 1)
+  const tickInterval = filtered.length > 0 ? Math.max(1, Math.floor(filtered.length / tickBuckets)) : 1
+
+  const isEmpty = filtered.length === 0
 
   return (
     <Card className="border-slate-200 bg-white shadow-sm">
@@ -81,49 +85,60 @@ export function TimeSeriesChart({ filtered, metrics, datasetColor }: TimeSeriesC
         </div>
       </CardHeader>
       <CardContent className="px-2 pb-4">
-        <ResponsiveContainer width="100%" height={280}>
-          <LineChart
-            data={chartData}
-            margin={{ top: 4, right: 16, left: 0, bottom: 0 }}
+        {isEmpty ? (
+          <div
+            className="flex items-center justify-center text-slate-400 text-sm"
+            style={{ height: 280 }}
+            role="img"
+            aria-label="No data for the selected period"
           >
-            <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-            <XAxis
-              dataKey="date"
-              tick={{ fontSize: 10, fill: '#94a3b8' }}
-              axisLine={false}
-              tickLine={false}
-              interval={Math.floor(filtered.length / tickCount)}
-            />
-            <YAxis
-              domain={domain}
-              tick={{ fontSize: 10, fill: '#94a3b8' }}
-              axisLine={false}
-              tickLine={false}
-              width={48}
-              tickFormatter={(v) => Math.round(v).toLocaleString('es-CL')}
-            />
-            <Tooltip
-              formatter={(v) => [
-                v != null ? Number(v).toLocaleString() : 'N/A',
-                selectedDef?.unit ?? '',
-              ]}
-              contentStyle={{
-                fontSize: 12,
-                border: '1px solid #e2e8f0',
-                borderRadius: 8,
-              }}
-            />
-            <Line
-              type="monotone"
-              dataKey="value"
-              stroke={datasetColor}
-              strokeWidth={2}
-              dot={false}
-              connectNulls={false}
-              isAnimationActive={false}
-            />
-          </LineChart>
-        </ResponsiveContainer>
+            No data for the selected period
+          </div>
+        ) : (
+          <ResponsiveContainer width="100%" height={280}>
+            <LineChart
+              data={chartData}
+              margin={{ top: 4, right: 16, left: 0, bottom: 0 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
+              <XAxis
+                dataKey="date"
+                tick={{ fontSize: 10, fill: '#94a3b8' }}
+                axisLine={false}
+                tickLine={false}
+                interval={tickInterval}
+              />
+              <YAxis
+                domain={domain}
+                tick={{ fontSize: 10, fill: '#94a3b8' }}
+                axisLine={false}
+                tickLine={false}
+                width={48}
+                tickFormatter={(v) => Math.round(v).toLocaleString('es-CL')}
+              />
+              <Tooltip
+                formatter={(v) => [
+                  v != null ? Number(v).toLocaleString() : 'N/A',
+                  selectedDef ? (METRIC_LABELS[selectedDef.key] ?? selectedDef.label) : '',
+                ]}
+                contentStyle={{
+                  fontSize: 12,
+                  border: '1px solid #e2e8f0',
+                  borderRadius: 8,
+                }}
+              />
+              <Line
+                type="monotone"
+                dataKey="value"
+                stroke={datasetColor}
+                strokeWidth={2}
+                dot={false}
+                connectNulls={false}
+                isAnimationActive={false}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        )}
       </CardContent>
     </Card>
   )
