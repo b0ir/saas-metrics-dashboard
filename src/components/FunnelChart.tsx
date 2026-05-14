@@ -41,6 +41,7 @@ export function FunnelChart({ filtered }: FunnelChartProps) {
         <p className="text-xs text-slate-400">Conversiones en el período seleccionado</p>
       </CardHeader>
       <CardContent className="px-2 pb-4">
+        <div role="img" aria-label="Sales funnel bar chart showing conversion counts per stage">
         <ResponsiveContainer width="100%" height={220}>
           <BarChart
             data={chartData}
@@ -81,6 +82,7 @@ export function FunnelChart({ filtered }: FunnelChartProps) {
             </Bar>
           </BarChart>
         </ResponsiveContainer>
+        </div>
       </CardContent>
     </Card>
   )

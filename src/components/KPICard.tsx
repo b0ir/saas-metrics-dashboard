@@ -16,9 +16,9 @@ const trendStyles = {
 } as const
 
 const TrendIcon = ({ trend }: { trend: KPIResult['trend'] }) => {
-  if (trend === 'good') return <TrendingUp className="h-3.5 w-3.5" />
-  if (trend === 'bad') return <TrendingDown className="h-3.5 w-3.5" />
-  return <Minus className="h-3.5 w-3.5" />
+  if (trend === 'good') return <TrendingUp className="h-3.5 w-3.5" aria-hidden="true" />
+  if (trend === 'bad') return <TrendingDown className="h-3.5 w-3.5" aria-hidden="true" />
+  return <Minus className="h-3.5 w-3.5" aria-hidden="true" />
 }
 
 export function KPICard({ kpi }: KPICardProps) {
@@ -47,10 +47,11 @@ export function KPICard({ kpi }: KPICardProps) {
             trendStyles[kpi.trend],
           )}
           data-trend={kpi.trend}
+          aria-label={`Trend: ${kpi.trend}, ${formatDelta(kpi.delta)} ${kpi.deltaLabel}`}
         >
           <TrendIcon trend={kpi.trend} />
-          <span>{formatDelta(kpi.delta)}</span>
-          <span className="text-slate-400 font-normal">{kpi.deltaLabel}</span>
+          <span aria-hidden="true">{formatDelta(kpi.delta)}</span>
+          <span className="text-slate-400 font-normal" aria-hidden="true">{kpi.deltaLabel}</span>
         </div>
       </CardContent>
     </Card>
